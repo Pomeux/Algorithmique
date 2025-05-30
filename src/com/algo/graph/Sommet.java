@@ -1,5 +1,6 @@
 package com.algo.graph;
 
+//à changer pour utilisé Node en tant que classe mère
 public class Sommet<T> {
 	private int degree;
 	private T sommet;
