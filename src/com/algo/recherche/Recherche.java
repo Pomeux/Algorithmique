@@ -128,6 +128,7 @@ public class Recherche {
         }
         return nb;
     }
+//passer en paramètre une expression lambda
     public static <T> int occurence(T[] tab, T t) {
 
         int i=0;

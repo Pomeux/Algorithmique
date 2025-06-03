@@ -7,37 +7,79 @@ public class ListChain<T> implements Iterable<T> {
     private Node<T> debut;
     private Node<T> fin;
     private T val;
+
     private int size;
 
+    public boolean double_liste;
 
-
-    public ListChain(T val) {
+    public ListChain(T val,boolean double_liste) {
         this.val=val;
-        debut=new Node<T>(val,null);
+        this.double_liste=double_liste;
+        if(!double_liste)
+            debut=new Node<T>(val,null);
+        else
+            debut=new NodeDouble<T>(val,null,null);
+
         fin=debut;
         size=1;
     }
-    public ListChain() {
-
+    public ListChain(boolean double_liste) {
+        this.double_liste=double_liste;
     }
-    public void add(T val) {
+    public void addFin(T val) {
         if(debut==null) {
-            debut = new Node(val, null);
+            if(!double_liste)
+                debut = new Node<T>(val, null);
+            else
+                debut=new NodeDouble<T>(val,null,null);
             fin=debut;
         } else {
-            Node<T> node=new Node(val,null);
-            fin.setNext(node);
-            fin=node;
+            if(!double_liste) {
+                Node<T> node=new Node<T>(val,null);
+                fin.setNext(node);
+                fin=node;
+            } else {
+                NodeDouble<T> node=new NodeDouble<T>(val,null,(NodeDouble) fin);
+                fin.setNext(node);
+                fin=node;
+            }
+
+
         }
         size+=1;
     }
+    public void addDebut(T val) {
+        if(debut==null) {
+           addFin(val);
+        } else {
+            if(!double_liste) {
+
+            } else {
+
+            }
+            size+=1;
+        }
+
+    }
     public void deleteDebut() {
 
+        if(debut==null) {
+            throw new NoSuchElementException("Liste Vide");
+        }
+        Node<T> node=debut.getNext();
+        if(node==null) {
+            debut=node;
+            if(node instanceof NodeDouble<T>) {
+                NodeDouble nodeDouble=(NodeDouble)node;
+                nodeDouble.setPrevious(null);
+            }
+
+        }
     }
     public void deleteFin() {
 
         if(debut==null) {
-            throw new NoSuchElementException("a");
+            throw new NoSuchElementException("Liste Vide");
         }
         if(debut instanceof NodeDouble<T>) {
 
@@ -49,11 +91,12 @@ public class ListChain<T> implements Iterable<T> {
     public void delete(T val) {
         Node<T> node=debut;
         if(debut==null) {
-            throw new NoSuchElementException("a");
+            throw new NoSuchElementException("Liste Vide");
         }
 
         if(debut.getVal()==val) {
-            gerer ce cas
+
+
         }
 
         while(!node.getNext().getVal().equals(val)) {
@@ -68,11 +111,14 @@ public class ListChain<T> implements Iterable<T> {
     public void delete(int i) {
 
     }
+    private int getSize() { return size;}
     public Iterator<T> iterator() {
         return null;
     }
     public String toString() {
-        return "";
+        //changer les tostring pour que ça soit des string modulable
+        return debut.toString()+ " size:"+size;
     }
+
 
 }
