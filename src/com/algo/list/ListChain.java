@@ -30,8 +30,10 @@ public class ListChain<T> implements Iterable<T> {
 
     //à factoriser
     public void add(int i) {
+        //  faire puis factoriser les autres
 
     }
+    //public void add(iterator)
 
     public void addFin(T val) {
         if(debut==null) {
