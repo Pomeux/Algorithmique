@@ -3,7 +3,7 @@ package com.algo.list;
 public class NodeDouble<T> extends Node<T>{
     private NodeDouble<T> previous;
 
-    public NodeDouble(T val,NodeDouble<T> next,NodeDouble<T> previous) {
+    public NodeDouble(T val,NodeDouble<T> next,NodeDouble<T> previous) { //inverser next et previous et tout modifier
         super(val,next);
         this.previous=previous;
     }

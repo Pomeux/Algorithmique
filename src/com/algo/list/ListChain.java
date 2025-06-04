@@ -23,9 +23,16 @@ public class ListChain<T> implements Iterable<T> {
         fin=debut;
         size=1;
     }
+
     public ListChain(boolean double_liste) {
         this.double_liste=double_liste;
     }
+
+    //à factoriser
+    public void add(int i) {
+
+    }
+
     public void addFin(T val) {
         if(debut==null) {
             if(!double_liste)
@@ -53,9 +60,12 @@ public class ListChain<T> implements Iterable<T> {
            addFin(val);
         } else {
             if(!double_liste) {
-
+                NodeDouble<T> node=new NodeDouble<T>(val,(NodeDouble) debut,null);
+                ((NodeDouble<T>) debut).setPrevious(node);
+                debut=node;
             } else {
-
+                Node<T> node=new Node(val,debut);
+                debut=node;
             }
             size+=1;
         }
@@ -111,6 +121,16 @@ public class ListChain<T> implements Iterable<T> {
     public void delete(int i) {
 
     }
+
+    public void  inverser() {
+
+    }
+
+    public static ListChain inverser(ListChain l1) {
+
+        return null;
+    }
+
     private int getSize() { return size;}
     public Iterator<T> iterator() {
         return null;
