@@ -29,9 +29,34 @@ public class ListChain<T> implements Iterable<T> {
     }
 
     //à factoriser
-    public void add(int i) {
+    public void add(T val,int i) {
         //  faire puis factoriser les autres
+        if(double_liste) {
+            if (depart_debut(i)) {
+                int d=0;
+                while (d!=i-1) {
 
+                }
+
+
+            } else {
+
+            }
+        }
+        else {
+
+        }
+
+
+    }
+    private boolean depart_debut(int i) {
+
+        int distance_fin=size-i;
+        if(i<=distance_fin) {
+            return true;
+        } else {
+            return false;
+        }
     }
     //public void add(iterator)
 
