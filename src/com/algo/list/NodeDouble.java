@@ -17,8 +17,8 @@ public class NodeDouble<T> extends Node<T>{
 
     @Override
     public String toString() {
-        if(previous==null) return getVal().toString()+getNext().toString();
         if(getNext()==null) return getVal().toString();
+        if(previous==null) return getVal().toString()+getNext().toString();
         return "<=>"+getVal().toString()+"<=>"+getNext().toString();
     }
 }

@@ -31,22 +31,45 @@ public class ListChain<T> implements Iterable<T> {
     //à factoriser
     public void add(T val,int i) {
         //  faire puis factoriser les autres
-        if(double_liste) {
-            if (depart_debut(i)) {
-                int d=0;
-                while (d!=i-1) {
 
+        if(i>size) {
+            throw new IllegalArgumentException("Illegal index");
+        }
+
+        if(double_liste) {
+           // if (depart_debut(i)) {
+                int d=0;
+                NodeDouble<T> node= (NodeDouble<T>) debut;
+                while (d<i) {
+                    node= (NodeDouble<T>) node.getNext();
+                    d++;
+                }
+            NodeDouble<T> new_node=null;
+            if(node!=null) {
+                   new_node=new NodeDouble<T>(val,(NodeDouble<T>) node.getNext(),node);
+                }
+                else {
+                   new_node=new NodeDouble<T>(val,null,node);
+                }
+                if(i==0) {
+                    debut=new_node;
+                }
+                if(i==size) {
+                    fin=new_node;
                 }
 
+          /*  } else {
+                int d=size;
+                NodeDouble<T> node= (NodeDouble<T>) fin;
+                while(d>i) {
 
-            } else {
-
-            }
+                }
+            }*/
         }
         else {
 
         }
-
+        size++;
 
     }
     private boolean depart_debut(int i) {

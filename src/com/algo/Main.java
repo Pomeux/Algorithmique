@@ -9,9 +9,9 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) {
         ListChain<Integer> s=new ListChain<Integer>(true);
-    s.addFin(1);
-    s.addFin(2);
-    s.addFin(3);
+    s.add(1,0);
+        //s.add(2);
+    //s.add(3);
     System.out.println(s);
     }
 }
