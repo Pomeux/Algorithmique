@@ -10,6 +10,12 @@ public class Main {
     public static void main(String[] args) {
         ListChain<Integer> s=new ListChain<Integer>(true);
     s.add(1,0);
+
+    s.add(2,1);
+    s.add(3,2);
+    s.add(4,0);
+
+
         //s.add(2);
     //s.add(3);
     System.out.println(s);

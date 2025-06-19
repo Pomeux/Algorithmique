@@ -32,31 +32,48 @@ public class ListChain<T> implements Iterable<T> {
     public void add(T val,int i) {
         //  faire puis factoriser les autres
 
+
+
         if(i>size) {
             throw new IllegalArgumentException("Illegal index");
+        } else if(i==0) {
+            addDebut(val);
+            return;
+        } else if(i==size) {
+            addFin(val);
+            return;
         }
-
+        /*
+//modifie pour mettre ajout debut et ajout fin
         if(double_liste) {
-           // if (depart_debut(i)) {
-                int d=0;
-                NodeDouble<T> node= (NodeDouble<T>) debut;
-                while (d<i) {
-                    node= (NodeDouble<T>) node.getNext();
-                    d++;
-                }
-            NodeDouble<T> new_node=null;
-            if(node!=null) {
-                   new_node=new NodeDouble<T>(val,(NodeDouble<T>) node.getNext(),node);
-                }
-                else {
-                   new_node=new NodeDouble<T>(val,null,node);
-                }
-                if(i==0) {
-                    debut=new_node;
-                }
-                if(i==size) {
-                    fin=new_node;
-                }
+            // if (depart_debut(i)) {
+            int d = 0;
+            NodeDouble<T> node = (NodeDouble<T>) debut;
+            while (d < i-1) { //faut que ça s'arre^tete avant
+                node = (NodeDouble<T>) node.getNext();
+                d++;
+            }
+
+            NodeDouble<T> new_node = null;
+            if (node != null && node.getNext() != null) {
+                new_node = new NodeDouble<T>(val, (NodeDouble<T>) node.getNext(), node);
+                node.setNext(new_node);
+
+            } else if (node == null) {
+
+                new_node = new NodeDouble<T>(val, null, null);
+            } else {
+                new_node = new NodeDouble<T>(val, null, node);
+                node.setNext(new_node);
+            }
+
+            if (i == 0) {
+                debut = new_node;
+            }
+            if (i == size) {
+                fin = new_node;
+            }
+        }
 
           /*  } else {
                 int d=size;
@@ -65,13 +82,12 @@ public class ListChain<T> implements Iterable<T> {
 
                 }
             }*/
-        }
-        else {
-
-        }
         size++;
+        }
 
-    }
+
+
+
     private boolean depart_debut(int i) {
 
         int distance_fin=size-i;
@@ -109,7 +125,7 @@ public class ListChain<T> implements Iterable<T> {
         if(debut==null) {
            addFin(val);
         } else {
-            if(!double_liste) {
+            if(double_liste) {
                 NodeDouble<T> node=new NodeDouble<T>(val,(NodeDouble) debut,null);
                 ((NodeDouble<T>) debut).setPrevious(node);
                 debut=node;
