@@ -14,6 +14,8 @@ public class Main {
     s.add(2,1);
     s.add(3,2);
     s.add(4,0);
+    s.add(5,4);
+    s.add(6,2);
 
 
         //s.add(2);

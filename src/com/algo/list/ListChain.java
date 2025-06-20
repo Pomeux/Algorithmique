@@ -43,6 +43,29 @@ public class ListChain<T> implements Iterable<T> {
             addFin(val);
             return;
         }
+        if(double_liste) {
+            // if(depart_debut(i)) {
+                int d=0;
+                NodeDouble<T> node = (NodeDouble<T>) debut;
+                while (d < i-1) {
+                    node = (NodeDouble<T>) node.getNext();
+                    d++;
+                }
+            NodeDouble<T> new_node = null;
+
+                new_node = new NodeDouble<T>(val, (NodeDouble<T>) node.getNext(), node);
+                node.setNext(new_node);
+
+            if (i == 0) {
+                debut = new_node;
+            }
+            if (i == size) {
+                fin = new_node;
+            }
+            //} else {
+
+            //}
+        }
         /*
 //modifie pour mettre ajout debut et ajout fin
         if(double_liste) {
