@@ -28,6 +28,21 @@ public class ListChain<T> implements Iterable<T> {
         this.double_liste=double_liste;
     }
 
+    public T at(int i) {
+        int d=1;
+        Node<T> node=debut;
+        if(0<i &&i<size) {
+            throw new IndexOutOfBoundsException("Index out of bounds");
+        }
+
+        while(d<i) {
+            node=node.getNext();
+            d++;
+        }
+
+        return node.getVal();
+    }
+
     //à factoriser
     public void add(T val,int i) {
         //  faire puis factoriser les autres
