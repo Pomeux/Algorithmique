@@ -8,7 +8,7 @@ import java.util.ArrayList;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        ListChain<Integer> s=new ListChain<Integer>(true);
+        ListChain<Integer> s=new ListChain<Integer>(false);
     s.add(1,0);
 
     s.add(2,1);
@@ -16,6 +16,7 @@ public class Main {
     s.add(4,0);
     s.add(5,4);
     s.add(6,2);
+    s.add(7,5);
 
 
         //s.add(2);

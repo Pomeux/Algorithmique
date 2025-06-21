@@ -33,83 +33,55 @@ public class ListChain<T> implements Iterable<T> {
         //  faire puis factoriser les autres
 
 
-
-        if(i>size) {
+        if (i > size) {
             throw new IllegalArgumentException("Illegal index");
-        } else if(i==0) {
+        } else if (i == 0) {
             addDebut(val);
             return;
-        } else if(i==size) {
+        } else if (i == size) {
             addFin(val);
             return;
         }
-        if(double_liste) {
-            // if(depart_debut(i)) {
-                int d=0;
-                NodeDouble<T> node = (NodeDouble<T>) debut;
-                while (d < i-1) {
+        if (double_liste) {
+            int d = 1;
+            NodeDouble<T> new_node = null;
+            NodeDouble<T> node = null;
+            if (depart_debut(i)) {
+                System.out.println("A"+val);
+                node = (NodeDouble<T>) debut;
+                while (d < i) {
                     node = (NodeDouble<T>) node.getNext();
                     d++;
                 }
-            NodeDouble<T> new_node = null;
 
-                new_node = new NodeDouble<T>(val, (NodeDouble<T>) node.getNext(), node);
-                node.setNext(new_node);
 
-            if (i == 0) {
-                debut = new_node;
+
+            } else {
+                System.out.println("B"+val);
+                d = size;
+                node = (NodeDouble<T>) fin;
+                while (d > i) {
+                    node = (NodeDouble<T>) node.getPrevious();
+                    d--;
+                }
+
+
             }
-            if (i == size) {
-                fin = new_node;
-            }
-            //} else {
-
-            //}
-        }
-        /*
-//modifie pour mettre ajout debut et ajout fin
-        if(double_liste) {
-            // if (depart_debut(i)) {
-            int d = 0;
-            NodeDouble<T> node = (NodeDouble<T>) debut;
-            while (d < i-1) { //faut que ça s'arre^tete avant
-                node = (NodeDouble<T>) node.getNext();
+            new_node = new NodeDouble<T>(val, (NodeDouble<T>) node.getNext(), node);
+            node.setNext(new_node);
+        } else {
+            Node<T> node=debut;
+            Node<T> new_node = null;
+            int d=1;
+            while(d<i) {
+                node =node.getNext();
                 d++;
             }
-
-            NodeDouble<T> new_node = null;
-            if (node != null && node.getNext() != null) {
-                new_node = new NodeDouble<T>(val, (NodeDouble<T>) node.getNext(), node);
-                node.setNext(new_node);
-
-            } else if (node == null) {
-
-                new_node = new NodeDouble<T>(val, null, null);
-            } else {
-                new_node = new NodeDouble<T>(val, null, node);
-                node.setNext(new_node);
-            }
-
-            if (i == 0) {
-                debut = new_node;
-            }
-            if (i == size) {
-                fin = new_node;
-            }
+            new_node = new Node<T>(val,  node.getNext());
+            node.setNext(new_node);
         }
-
-          /*  } else {
-                int d=size;
-                NodeDouble<T> node= (NodeDouble<T>) fin;
-                while(d>i) {
-
-                }
-            }*/
         size++;
-        }
-
-
-
+    }
 
     private boolean depart_debut(int i) {
 
