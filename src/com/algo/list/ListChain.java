@@ -167,9 +167,20 @@ public class ListChain<T> implements Iterable<T> {
         if(debut==null) {
             throw new NoSuchElementException("Liste Vide");
         }
-        if(debut instanceof NodeDouble<T>) {
-
+        if(debut.getNext()==null) {
+            deleteDebut();
+        }
+        if(double_liste) {
+            fin=((NodeDouble<T>) fin).getPrevious();
+            fin.setNext(null);
         } else {
+             Node<T> node=debut;
+
+
+             while(node.getNext().getNext()!=null) {
+                 node=node.getNext();
+             }
+             node.setNext(null);
 
         }
 
@@ -181,7 +192,7 @@ public class ListChain<T> implements Iterable<T> {
         }
 
         if(debut.getVal()==val) {
-
+            debut=debut.getNext();
 
         }
 
@@ -195,6 +206,24 @@ public class ListChain<T> implements Iterable<T> {
         node.setNext(node.getNext().getNext());
     }
     public void delete(int i) {
+        if(i>size) {
+            throw new IndexOutOfBoundsException("Index out of bounds");
+        }
+        else if(i==1) {
+            deleteDebut();
+            return;
+        } else if(i==size) {
+            deleteFin();
+            return;
+        }
+        if(double_liste) {
+
+        }
+        int d=1;
+        while(d<i-1) {
+
+        }
+
 
     }
 
