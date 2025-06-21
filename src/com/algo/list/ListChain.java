@@ -152,14 +152,10 @@ public class ListChain<T> implements Iterable<T> {
         if(debut==null) {
             throw new NoSuchElementException("Liste Vide");
         }
-        Node<T> node=debut.getNext();
-        if(node==null) {
-            debut=node;
-            if(node instanceof NodeDouble<T>) {
-                NodeDouble nodeDouble=(NodeDouble)node;
-                nodeDouble.setPrevious(null);
-            }
 
+        debut=debut.getNext();
+        if(double_liste) {
+            ((NodeDouble<T>) debut).setPrevious(null);
         }
     }
     public void deleteFin() {
