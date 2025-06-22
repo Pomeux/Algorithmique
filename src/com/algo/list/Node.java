@@ -21,6 +21,17 @@ public class Node<T> {
 	public void setNext(Node<T> next) { this.next=next; }
 
 	@Override
+	public boolean equals(Object obj) {
+		if(this==obj)
+			return true;
+		if(obj==null)
+			return false;
+		if(!(obj instanceof Node))
+			return false;
+		return false;
+	}
+
+	@Override
 	public String toString() {
 		if(next==null) return val.toString();
 		return val+"->"+next;

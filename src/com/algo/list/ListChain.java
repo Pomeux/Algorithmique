@@ -5,9 +5,14 @@ import java.util.NoSuchElementException;
 
 public class ListChain<T> implements Iterable<T> {
     private Node<T> debut;
-    public Node<T> fin;
+    private Node<T> fin;
     private T val;
+    private static int compt=0;
+    private int id=0;
+    static {
+        compt++;
 
+    }
     private int size;
 
     public boolean double_liste;
@@ -15,6 +20,7 @@ public class ListChain<T> implements Iterable<T> {
     public ListChain(T val,boolean double_liste) {
         this.val=val;
         this.double_liste=double_liste;
+        this.id=compt;
         if(!double_liste)
             debut=new Node<T>(val,null);
         else
@@ -26,6 +32,7 @@ public class ListChain<T> implements Iterable<T> {
 
     public ListChain(boolean double_liste) {
         this.double_liste=double_liste;
+        this.id=compt;
     }
 
     public T at(int i) {
@@ -280,6 +287,22 @@ public class ListChain<T> implements Iterable<T> {
     public Iterator<T> iterator() {
         return null;
     }
+    private int getId() {
+        return id;
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if(this==obj)
+            return true;
+        if(obj==null)
+            return false;
+        if(!(obj instanceof ListChain))
+            return false;
+        ListChain<T> l=(ListChain<T> ) obj;
+        return l.getId()==id && debut==l.debut && fin==l.fin; //regler
+    }
+
+    @Override
     public String toString() {
         //changer les tostring pour que ça soit des string modulable
         return debut.toString()+ " size:"+size;
