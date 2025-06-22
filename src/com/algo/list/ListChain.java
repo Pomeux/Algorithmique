@@ -5,7 +5,7 @@ import java.util.NoSuchElementException;
 
 public class ListChain<T> implements Iterable<T> {
     private Node<T> debut;
-    private Node<T> fin;
+    public Node<T> fin;
     private T val;
 
     private int size;
@@ -42,6 +42,20 @@ public class ListChain<T> implements Iterable<T> {
 
         return node.getVal();
     }
+    public void set(T val,int i) {
+        int d=1;
+        Node<T> node=debut;
+        if(0<i &&i<size) {
+            throw new IndexOutOfBoundsException("Index out of bounds");
+        }
+
+        while(d<i) {
+            node=node.getNext();
+            d++;
+        }
+
+        node.setVal(val);
+    }
 
     //à factoriser
     public void add(T val,int i) {
@@ -62,7 +76,7 @@ public class ListChain<T> implements Iterable<T> {
             NodeDouble<T> new_node = null;
             NodeDouble<T> node = null;
             if (depart_debut(i)) {
-                System.out.println("A"+val);
+
                 node = (NodeDouble<T>) debut;
                 while (d < i) {
                     node = (NodeDouble<T>) node.getNext();
@@ -72,7 +86,7 @@ public class ListChain<T> implements Iterable<T> {
 
 
             } else {
-                System.out.println("B"+val);
+
                 d = size;
                 node = (NodeDouble<T>) fin;
                 while (d > i) {
@@ -83,7 +97,10 @@ public class ListChain<T> implements Iterable<T> {
 
             }
             new_node = new NodeDouble<T>(val, (NodeDouble<T>) node.getNext(), node);
+            ((NodeDouble<T>) node.getNext()).setPrevious(new_node);
             node.setNext(new_node);
+
+
         } else {
             Node<T> node=debut;
             Node<T> new_node = null;
@@ -157,6 +174,7 @@ public class ListChain<T> implements Iterable<T> {
         if(double_liste) {
             ((NodeDouble<T>) debut).setPrevious(null);
         }
+        size--;
     }
     public void deleteFin() {
 
@@ -167,7 +185,10 @@ public class ListChain<T> implements Iterable<T> {
             deleteDebut();
         }
         if(double_liste) {
+
+
             fin=((NodeDouble<T>) fin).getPrevious();
+
             fin.setNext(null);
         } else {
              Node<T> node=debut;
@@ -177,32 +198,23 @@ public class ListChain<T> implements Iterable<T> {
                  node=node.getNext();
              }
              node.setNext(null);
-
+             System.out.println(node.getVal());
+             fin=node;
         }
-
+        size--;
     }
     public void delete(T val) {
-        Node<T> node=debut;
+
+    }
+    public boolean est_vide() {
+        return size==0;
+    }
+    public void delete(int i) {
         if(debut==null) {
             throw new NoSuchElementException("Liste Vide");
         }
 
-        if(debut.getVal()==val) {
-            debut=debut.getNext();
-
-        }
-
-        while(!node.getNext().getVal().equals(val)) {
-            node=node.getNext();
-        }
-        if( node.getNext().getNext()==null && node instanceof NodeDouble<T>) {
-            NodeDouble<T> n= (NodeDouble<T>) node.getNext().getNext();
-            n.setPrevious( (NodeDouble<T>) node);
-        }
-        node.setNext(node.getNext().getNext());
-    }
-    public void delete(int i) {
-        if(i>size) {
+        if( i<1|| i>size) {
             throw new IndexOutOfBoundsException("Index out of bounds");
         }
         else if(i==1) {
@@ -213,13 +225,45 @@ public class ListChain<T> implements Iterable<T> {
             return;
         }
         if(double_liste) {
+            int d=1;
+            NodeDouble<T> node=null;
 
+            if(depart_debut(i)) {
+                node=(NodeDouble<T>) debut;
+
+                while(d<i-1) {
+                    d++;
+                  node=(NodeDouble<T>) node.getNext();
+                }
+                ((NodeDouble<T>) node.getNext().getNext()).setPrevious(node);
+                node.setNext(node.getNext().getNext());
+            } else {
+                node=(NodeDouble<T>) fin;
+                d=size;
+                while(d>i+1) {
+                    d--;
+                    node=(NodeDouble<T>) node.getPrevious();
+                }
+                ((NodeDouble<T>) node.getPrevious().getPrevious()).setNext(node);
+                node.setPrevious(node.getPrevious().getPrevious());
+                System.out.println("a");
+            }
+
+
+
+        } else {
+            Node<T> node=debut;
+            int d=1;
+
+            while(d<i-1) {
+                d++;
+                node=node.getNext();
+            }
+
+            node.setNext(node.getNext().getNext());
         }
-        int d=1;
-        while(d<i-1) {
 
-        }
-
+    size--;
 
     }
 
