@@ -4,40 +4,38 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class ListChain<T> implements Iterable<T> {
-    private Node<T> debut;
-    private Node<T> fin;
-    private T val;
-    private static int compt=0;
-    private int id=0;
+    private Node<T> begin;
+    private Node<T> end;
+    private static int compt;
+    private final int id;
     static {
         compt++;
 
     }
     private int size;
 
-    public boolean double_liste;
+    public boolean double_list;
 
-    public ListChain(T val,boolean double_liste) {
-        this.val=val;
-        this.double_liste=double_liste;
+    public ListChain(T val,boolean double_list) {
+        this.double_list=double_list;
         this.id=compt;
-        if(!double_liste)
-            debut=new Node<T>(val,null);
+        if(!double_list)
+            begin=new Node<>(val,null);
         else
-            debut=new NodeDouble<T>(val,null,null);
+            begin=new NodeDouble<>(val,null,null);
 
-        fin=debut;
+        end=begin;
         size=1;
     }
 
-    public ListChain(boolean double_liste) {
-        this.double_liste=double_liste;
+    public ListChain(boolean double_list) {
+        this.double_list=double_list;
         this.id=compt;
     }
 
     public T at(int i) {
         int d=1;
-        Node<T> node=debut;
+        Node<T> node=begin;
         if(0<i &&i<size) {
             throw new IndexOutOfBoundsException("Index out of bounds");
         }
@@ -51,7 +49,7 @@ public class ListChain<T> implements Iterable<T> {
     }
     public void set(T val,int i) {
         int d=1;
-        Node<T> node=debut;
+        Node<T> node=begin;
         if(0<i &&i<size) {
             throw new IndexOutOfBoundsException("Index out of bounds");
         }
@@ -64,27 +62,24 @@ public class ListChain<T> implements Iterable<T> {
         node.setVal(val);
     }
 
-    //à factoriser
+
     public void add(T val,int i) {
-        //  faire puis factoriser les autres
-
-
         if (i > size) {
             throw new IllegalArgumentException("Illegal index");
         } else if (i == 0) {
-            addDebut(val);
+            add_begin(val);
             return;
         } else if (i == size) {
-            addFin(val);
+            add_end(val);
             return;
         }
-        if (double_liste) {
+        if (double_list) {
             int d = 1;
-            NodeDouble<T> new_node = null;
-            NodeDouble<T> node = null;
-            if (depart_debut(i)) {
+            NodeDouble<T> new_node;
+            NodeDouble<T> node;
+            if (depart_begin(i)) {
 
-                node = (NodeDouble<T>) debut;
+                node = (NodeDouble<T>) begin;
                 while (d < i) {
                     node = (NodeDouble<T>) node.getNext();
                     d++;
@@ -95,9 +90,9 @@ public class ListChain<T> implements Iterable<T> {
             } else {
 
                 d = size;
-                node = (NodeDouble<T>) fin;
+                node = (NodeDouble<T>) end;
                 while (d > i) {
-                    node = (NodeDouble<T>) node.getPrevious();
+                    node = node.getPrevious();
                     d--;
                 }
 
@@ -109,96 +104,92 @@ public class ListChain<T> implements Iterable<T> {
 
 
         } else {
-            Node<T> node=debut;
-            Node<T> new_node = null;
+            Node<T> node=begin;
+            Node<T> new_node;
             int d=1;
             while(d<i) {
                 node =node.getNext();
                 d++;
             }
-            new_node = new Node<T>(val,  node.getNext());
+            new_node = new Node<>(val,  node.getNext());
             node.setNext(new_node);
         }
         size++;
     }
 
-    private boolean depart_debut(int i) {
+    private boolean depart_begin(int i) {
 
-        int distance_fin=size-i;
-        if(i<=distance_fin) {
-            return true;
-        } else {
-            return false;
-        }
+        int distance_end=size-i;
+        return i<=distance_end;
+
     }
-    //public void add(iterator)
 
-    public void addFin(T val) {
-        if(debut==null) {
-            if(!double_liste)
-                debut = new Node<T>(val, null);
+    public void add_end(T val) {
+        if(begin==null) {
+            if(!double_list)
+                begin = new Node<>(val, null);
             else
-                debut=new NodeDouble<T>(val,null,null);
-            fin=debut;
+                begin=new NodeDouble<>(val,null,null);
+            end=begin;
         } else {
-            if(!double_liste) {
-                Node<T> node=new Node<T>(val,null);
-                fin.setNext(node);
-                fin=node;
+            if(!double_list) {
+                Node<T> node=new Node<>(val,null);
+                end.setNext(node);
+                end=node;
             } else {
-                NodeDouble<T> node=new NodeDouble<T>(val,null,(NodeDouble) fin);
-                fin.setNext(node);
-                fin=node;
+                NodeDouble<T> node=new NodeDouble<T>(val,null,(NodeDouble) end);
+                end.setNext(node);
+                end=node;
             }
 
 
         }
         size+=1;
     }
-    public void addDebut(T val) {
-        if(debut==null) {
-           addFin(val);
+    public void add_begin(T val) {
+        if(begin==null) {
+           add_end(val);
         } else {
-            if(double_liste) {
-                NodeDouble<T> node=new NodeDouble<T>(val,(NodeDouble) debut,null);
-                ((NodeDouble<T>) debut).setPrevious(node);
-                debut=node;
+            if(double_list) {
+                NodeDouble<T> node=new NodeDouble<T>(val,(NodeDouble) begin,null);
+                ((NodeDouble<T>) begin).setPrevious(node);
+                begin=node;
             } else {
-                Node<T> node=new Node(val,debut);
-                debut=node;
+                Node<T> node=new Node(val,begin);
+                begin=node;
             }
             size+=1;
         }
 
     }
-    public void deleteDebut() {
+    public void delete_begin() {
 
-        if(debut==null) {
+        if(begin==null) {
             throw new NoSuchElementException("Liste Vide");
         }
 
-        debut=debut.getNext();
-        if(double_liste) {
-            ((NodeDouble<T>) debut).setPrevious(null);
+        begin=begin.getNext();
+        if(double_list) {
+            ((NodeDouble<T>) begin).setPrevious(null);
         }
         size--;
     }
-    public void deleteFin() {
+    public void delete_end() {
 
-        if(debut==null) {
+        if(begin==null) {
             throw new NoSuchElementException("Liste Vide");
         }
-        if(debut.getNext()==null) {
-            deleteDebut();
+        if(begin.getNext()==null) {
+            delete_begin();
         }
-        if(double_liste) {
+        if(double_list) {
 
 
-            fin=((NodeDouble<T>) fin).getPrevious();
+            end=((NodeDouble<T>) end).getPrevious();
 
-            fin.setNext(null);
+            end.setNext(null);
         } else {
-             Node<T> node=debut;
+             Node<T> node=begin;
 
 
              while(node.getNext().getNext()!=null) {
@@ -206,7 +197,7 @@ public class ListChain<T> implements Iterable<T> {
              }
              node.setNext(null);
              System.out.println(node.getVal());
-             fin=node;
+             end=node;
         }
         size--;
     }
@@ -217,7 +208,7 @@ public class ListChain<T> implements Iterable<T> {
         return size==0;
     }
     public void delete(int i) {
-        if(debut==null) {
+        if(begin==null) {
             throw new NoSuchElementException("Liste Vide");
         }
 
@@ -225,18 +216,18 @@ public class ListChain<T> implements Iterable<T> {
             throw new IndexOutOfBoundsException("Index out of bounds");
         }
         else if(i==1) {
-            deleteDebut();
+            delete_begin();
             return;
         } else if(i==size) {
-            deleteFin();
+            delete_end();
             return;
         }
-        if(double_liste) {
+        if(double_list) {
             int d=1;
             NodeDouble<T> node=null;
 
-            if(depart_debut(i)) {
-                node=(NodeDouble<T>) debut;
+            if(depart_begin(i)) {
+                node=(NodeDouble<T>) begin;
 
                 while(d<i-1) {
                     d++;
@@ -245,13 +236,13 @@ public class ListChain<T> implements Iterable<T> {
                 ((NodeDouble<T>) node.getNext().getNext()).setPrevious(node);
                 node.setNext(node.getNext().getNext());
             } else {
-                node=(NodeDouble<T>) fin;
+                node=(NodeDouble<T>) end;
                 d=size;
                 while(d>i+1) {
                     d--;
                     node=(NodeDouble<T>) node.getPrevious();
                 }
-                ((NodeDouble<T>) node.getPrevious().getPrevious()).setNext(node);
+                node.getPrevious().getPrevious().setNext(node);
                 node.setPrevious(node.getPrevious().getPrevious());
                 System.out.println("a");
             }
@@ -259,7 +250,7 @@ public class ListChain<T> implements Iterable<T> {
 
 
         } else {
-            Node<T> node=debut;
+            Node<T> node=begin;
             int d=1;
 
             while(d<i-1) {
@@ -299,13 +290,13 @@ public class ListChain<T> implements Iterable<T> {
         if(!(obj instanceof ListChain))
             return false;
         ListChain<T> l=(ListChain<T> ) obj;
-        return l.getId()==id && debut==l.debut && fin==l.fin; //regler
+        return l.getId()==id && begin==l.begin && end==l.end; //regler
     }
 
     @Override
     public String toString() {
         //changer les tostring pour que ça soit des string modulable
-        return debut.toString()+ " size:"+size;
+        return begin.toString()+ " size:"+size;
     }
 
 
