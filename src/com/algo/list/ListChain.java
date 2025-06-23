@@ -274,7 +274,7 @@ public class ListChain<T> implements Iterable<T> {
         return null;
     }
 
-    private int getSize() { return size;}
+    public int getSize() { return size;}
     public Iterator<T> iterator() {
         return null;
     }
