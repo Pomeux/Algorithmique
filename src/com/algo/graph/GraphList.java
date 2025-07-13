@@ -2,34 +2,25 @@ package com.algo.graph;
 
 import java.util.ArrayList;
 
-public class GraphList<T> {
+public class GraphList<T> extends Graph<T>{
 	
-	private int n;
-	private ArrayList<Sommet<T>> tab; // sommet permet évité d'avoir un noeud au début passoire ou de s'embeter avec le cas premier dans les algos.
-	
-	private boolean oriente; 
-	private boolean weighted;
-	// faire en sorte dans le constructeur que la liste soit bien défini(par exemple qu'il n'y a pas de sommet weight et normal dans une même liste)
-	public GraphList(ArrayList<Sommet<T>> tab,int n,boolean oriente,boolean weighted) {
-		this.tab=tab;
-		this.n=n;
-		this.oriente=oriente;
-		this.weighted=weighted;
+
+	private ArrayList<Sommet<T>> tab;
+
+	public GraphList(int n,boolean oriente,boolean weighted) {
+		super(oriente,weighted);
 	}
-	public boolean getOriente() {
-		return oriente;
-	}
-	public boolean getWeighted() {
-		return weighted;
-	}
-	public int getN() {
-		return n;
-	}
+
 	private int degree(int i) {
-		if(1<=i && i<=n) {
+		if(1<=i && i<=get_node()) {
 			return tab.get(i).getDegree();
 		}
 		throw new IllegalArgumentException("numero de sommet pas présent"+getClass().getSimpleName());
+	}
+	public void add_node(T t) {
+		Sommet<T> s=new Sommet<>(t);
+		tab.add(s);
+		set_node(get_node()+1);
 	}
 	@Override
 	public String toString() {
