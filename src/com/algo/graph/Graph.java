@@ -38,5 +38,6 @@ public abstract class Graph<T> {
 		return n+" "+m;
 	}
 	public abstract void add_node(T t);
+	public abstract void add_edge(int i, T t);
 	
 }

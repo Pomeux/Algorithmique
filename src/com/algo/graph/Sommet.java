@@ -2,6 +2,8 @@ package com.algo.graph;
 
 import com.algo.list.ListChain;
 
+import java.util.Iterator;
+
 
 public class Sommet<T> {
 	private int degree;
@@ -13,6 +15,7 @@ public class Sommet<T> {
 		this.sommet=sommet;
 
 	}
+
 	public void setDegree(int degree) { this.degree=degree;}
 	public int getDegree() {
 		return degree;
@@ -22,6 +25,10 @@ public class Sommet<T> {
 	}
 	public void setSommet(T sommet) {
 		this.sommet=sommet;
+	}
+
+	public 	Iterator<T> t() {
+		return adjacent.iterator();
 	}
 
 	@Override
