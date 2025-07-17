@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BinaryTree<T> {
+    private BinaryTree<T> father;
     private BinaryTree<T> left;
     private BinaryTree<T> right;
     private int size=1;
@@ -51,6 +52,14 @@ public class BinaryTree<T> {
     public BinaryTree<T> sub_tree_left() {
         return left;
     }
+
+    public void set_right(BinaryTree<T> right) {
+        this.right=right;
+    }
+    public void set_left(BinaryTree<T> left) {
+        this.left=left;
+    }
+
 
     public List<T> post_fix() {
         return post_fix(this,new ArrayList<T>(size));

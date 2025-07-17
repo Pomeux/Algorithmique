@@ -22,6 +22,13 @@ public class GraphList<T> extends Graph<T>{
 		tab.add(s);
 		set_node(get_node()+1);
 	}
+
+	@Override
+	public void add_edge(int i, T t) {
+		Sommet<T> sommet=tab.get(i);
+
+	}
+
 	@Override
 	public String toString() {
 		return "";
