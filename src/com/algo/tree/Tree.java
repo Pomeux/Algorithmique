@@ -1,4 +1,4 @@
 package com.algo.tree;
 
-public class Tree {
+public abstract class TreeBase<T,V extends TreeBase> {
 }

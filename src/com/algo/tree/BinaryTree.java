@@ -3,10 +3,10 @@ package com.algo.tree;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BinaryTree<T> {
-    private BinaryTree<T> father;
-    private BinaryTree<T> left;
-    private BinaryTree<T> right;
+public class BinaryTree<T> extends Tree {
+    private V father;
+    private V left;
+    private V right;
     private int size=1;
     private T val;
 
@@ -16,10 +16,11 @@ public class BinaryTree<T> {
 
     }
 
-    public BinaryTree(T val,BinaryTree<T> left,BinaryTree<T> right) {
+    public BinaryTree(T val,V left,V right) {
         this.val=val;
         this.left=left;
         this.right=right;
+        
     }
     public boolean is_leaf() {
         return left==null && right==null;
