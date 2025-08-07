@@ -3,7 +3,7 @@ package com.algo.tree;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BinaryTree<T> extends Tree {
+public class BinaryTree<T> extends TreeBase<T,V extends Tree> {
     private V father;
     private V left;
     private V right;
